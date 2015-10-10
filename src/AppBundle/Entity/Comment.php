@@ -65,9 +65,21 @@ class Comment
      */
     private $publishedAt;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $deletedBy;
+
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
+        $this->deletedAt = null;
     }
 
     /**
@@ -116,8 +128,34 @@ class Comment
     {
         return $this->post;
     }
+
     public function setPost(Post $post)
     {
         $this->post = $post;
+    }
+
+    public function setDeletedAt(\DateTime $deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedBy(User $user)
+    {
+        $this->deletedBy = $user;
+    }
+
+    public function getDeletedBy()
+    {
+        return $this->deletedBy;
+    }
+
+    public function isDeleted()
+    {
+        return null !== $this->deletedAt;
     }
 }

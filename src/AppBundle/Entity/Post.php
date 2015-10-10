@@ -155,7 +155,11 @@ class Post
 
     public function getComments()
     {
-        return $this->comments;
+        $isNotDeletedPredicate = function (Comment $comment) {
+            return ! $comment->isDeleted();
+        };
+
+        return $this->comments->filter($isNotDeletedPredicate);
     }
 
     public function addComment(Comment $comment)

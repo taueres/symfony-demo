@@ -33,6 +33,11 @@
             <h4 class="col-sm-3">
                 <strong>{{ comment.authorEmail }}</strong> {{ 'post.commented_on'|trans }}
                 <strong>{{ comment.publishedAt|localizeddate('medium', 'short') }}</strong>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('admin_comment_delete', {'comment': comment.id}) }}">
+                        <strong style="color: red;">Delete this comment</strong>
+                    </a>
+                {% endif %}
             </h4>
             <div class="col-sm-9">
                 {{ comment.content|md2html }}
