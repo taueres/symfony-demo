@@ -9,6 +9,6 @@
 !app/logs/.gitkeep
 /build/
 /vendor/
-/bin/
+/bin/*
 !bin/build_db
 /composer.phar
