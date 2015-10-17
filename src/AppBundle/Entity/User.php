@@ -90,6 +90,22 @@ class User implements AdvancedUserInterface
     }
 
     /**
+     * @param bool $isBanned
+     */
+    public function setBanned($isBanned)
+    {
+        $this->isBanned = $isBanned;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBanned()
+    {
+        return $this->isBanned;
+    }
+
+    /**
      * Returns the roles or permissions granted to the user for security.
      */
     public function getRoles()
@@ -157,7 +173,7 @@ class User implements AdvancedUserInterface
      */
     public function isAccountNonLocked()
     {
-        return ! $this->isBanned;
+        return ! $this->isBanned();
     }
 
     /**

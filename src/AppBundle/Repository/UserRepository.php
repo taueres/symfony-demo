@@ -11,6 +11,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -24,4 +25,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * @param string $emailAddress
+     * @return User|null
+     */
+    public function getUserByEmailAddress($emailAddress)
+    {
+        return $this->findOneBy(['email' => $emailAddress]);
+    }
 }
