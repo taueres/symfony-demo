@@ -7,7 +7,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 class UserEvent extends GenericEvent
 {
-    const EVENT_USER_LOCKED = 'user.locked';
+    const EVENT_USER_BANNED = 'user.banned';
 
     public function __construct(User $user)
     {

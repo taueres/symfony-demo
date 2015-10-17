@@ -6,7 +6,7 @@ use AppBundle\Entity\User;
 use AppBundle\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class UserLocker
+class UserManager
 {
     /** @var  EventDispatcherInterface */
     private $eventDispatcher;
@@ -23,13 +23,13 @@ class UserLocker
      * @param User $user
      * @return User
      */
-    public function lockUser(User $user)
+    public function ban(User $user)
     {
-        if ($user->isBanned()) throw new \LogicException('User is locked already!');
+        if ($user->isBanned()) throw new \LogicException('User is already banned!');
 
         $user->setBanned(true);
 
-        $this->eventDispatcher->dispatch(UserEvent::EVENT_USER_LOCKED, new UserEvent($user));
+        $this->eventDispatcher->dispatch(UserEvent::EVENT_USER_BANNED, new UserEvent($user));
 
         return $user;
     }
