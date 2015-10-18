@@ -126,6 +126,14 @@ class User implements AdvancedUserInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return in_array('ROLE_ADMIN', $this->roles);
+    }
+
+    /**
      * Returns the salt that was originally used to encode the password.
      */
     public function getSalt()
