@@ -149,6 +149,9 @@ class Comment
         $this->deletedBy = $user;
     }
 
+    /**
+     * @return User|null
+     */
     public function getDeletedBy()
     {
         return $this->deletedBy;
