@@ -27,6 +27,14 @@ class LoadUserData
         $annaAdmin->setPassword($encodedPassword);
         $manager->persist($annaAdmin);
 
+        $mikeAdmin = new User();
+        $mikeAdmin->setUsername('mike_admin');
+        $mikeAdmin->setEmail('mike_admin@symfony.com');
+        $mikeAdmin->setRoles(array('ROLE_ADMIN'));
+        $encodedPassword = $passwordEncoder->encodePassword($mikeAdmin, 'kitten');
+        $mikeAdmin->setPassword($encodedPassword);
+        $manager->persist($mikeAdmin);
+
         $manager->flush();
     }
 }

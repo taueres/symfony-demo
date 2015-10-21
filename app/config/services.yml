@@ -1,5 +1,36 @@
 services:
 
+    user_ban_operator:
+        class: AppBundle\Service\UserBanOperator
+        arguments:
+            - @user_manager
+            - @automatic_ban_criteria
+
+    user_listener:
+        class: AppBundle\EventListener\UserListener
+        arguments:
+            - @user_repository
+            - @user_ban_operator
+        tags:
+            - { name: kernel.event_listener, event: comment.deleted, method: onCommentDeleted }
+
+    distinct_deleter_criteria:
+        class: AppBundle\Criteria\DistinctDeleterCriteria
+        arguments:
+            - 2
+            - @comment_repository
+
+    deleted_comment_criteria:
+        class: AppBundle\Criteria\DeletedCommentsCriteria
+        arguments:
+            - 3
+            - @comment_repository
+
+    automatic_ban_criteria:
+        class: AppBundle\Criteria\AndCriteria
+        arguments:
+            - [@deleted_comment_criteria, @distinct_deleter_criteria]
+
     comment_manager:
         class: AppBundle\Service\CommentManager
         arguments:
